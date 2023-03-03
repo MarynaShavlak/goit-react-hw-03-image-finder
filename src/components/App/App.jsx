@@ -29,6 +29,7 @@ export class App extends Component {
 
    if (prevState.query !== query || prevState.page !== page) {
      try {
+      this.setState({ isLoading: true })
        const response = await API.requestImages(query, page);
        const { hits: images, totalHits: maxQuantityOfImagesToShow } = response;
 
@@ -66,14 +67,12 @@ export class App extends Component {
       query: searchedQuery,
       page: 1,
       images: [],
-      isLoading: true,
     });
   }
 
   handleLoadMore = () => {
     this.setState(prevState => ({
       page: prevState.page + 1,
-      isLoading: true,
     }))
   }
 
